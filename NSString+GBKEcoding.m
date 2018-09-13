@@ -10,17 +10,14 @@
 
 @implementation NSString(GBKEcoding)
 
-+ (NSString *)GB18030String:(NSData *)sender {
++ (NSString *)GB18030String:(NSData *)data {
     NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-    NSString *str = [[NSString alloc] initWithData:sender encoding:enc];
-    if (!str) {
-        str = [[NSString alloc] initWithData:[self dataByHealingGB18030Stream:sender] encoding:enc];
-    }
-    return str;
+    return [[NSString alloc] initWithData:data encoding:enc] ?:
+           [[NSString alloc] initWithData:[self filterInvalidString:data] encoding:enc];
 }
 
 
-+ (NSData *)dataByHealingGB18030Stream:(NSData *)data {
++ (NSData *)filterInvalidString:(NSData *)data {
     if ([data length] == 0) {
         return data;
     }
