@@ -29,23 +29,17 @@
         if ((parsedData = [self parseASCII:indexBytes])) {
             [resultData appendData:parsedData];
             indexBytes += 1;
-            NSLog(@"解析出ascii码：%@",[[NSString alloc] initWithData:parsedData encoding:NSASCIIStringEncoding]);
         }else if (indexBytes + 2 > bytes + data.length) {
-            NSLog(@"《《已经少两个字节，无法再进行双子以及四字的解析，完成退出》》");
             break;
         }else if ((parsedData = [self parseDoubleWord:indexBytes])) {
             [resultData appendData:parsedData];
             indexBytes += 2;
-            NSLog(@"解析出双字节码：%@",[[NSString alloc] initWithData:parsedData encoding:CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000)]);
         }else if (indexBytes + 4 > bytes + data.length) {
-            NSLog(@"《《已经少四个字节，无法再进行四个字的解析，完成退出》》");
             break;
         }else if ((parsedData = [self parseQuadraWord:indexBytes])) {
             [resultData appendData:parsedData];
             indexBytes += 4;
-            NSLog(@"解析出四字节码：%@",[[NSString alloc] initWithData:parsedData encoding:CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000)]);
         }else {
-            NSLog(@"解析出不合法字节:%x",*bytes);
             NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
             [resultData appendData:[@"?" dataUsingEncoding:enc]];
             indexBytes += 1;
