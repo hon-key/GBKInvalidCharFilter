@@ -2,8 +2,8 @@
 //  NSString+GBKEcoding.m
 //  DYTT
 //
-//  Created by Ruite Chen on 2018/9/12.
-//  Copyright © 2018年 乐刷. All rights reserved.
+//  Created by Matt on 2018/9/12.
+//  Copyright © 2018年 HJ-CAI. All rights reserved.
 //
 
 #import "NSString+GBKEcoding.h"
