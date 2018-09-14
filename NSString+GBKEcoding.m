@@ -60,9 +60,9 @@
     if (firstByte >= (Byte)0x81 && firstByte <= (Byte)0xfe) {
         Byte secondByte = *(byte+1);
         if (secondByte >= (Byte)0x40 && secondByte <= (Byte)0xfe && secondByte != (Byte)0x7f) {
-            Byte tuple[] = {firstByte, secondByte};
-            CFStringRef cfstr = CFStringCreateWithBytes(kCFAllocatorDefault,tuple,2,kCFStringEncodingGB_18030_2000,false);
-            return cfstr ? [NSData dataWithBytes:byte length:2] : nil;
+            Byte validBytes[] = {firstByte, secondByte};
+            CFStringRef cStr = CFStringCreateWithBytes(kCFAllocatorDefault,validBytes,2,kCFStringEncodingGB_18030_2000,false);
+            return cStr ? [NSData dataWithBytes:byte length:2] : nil;
         }
     }
     return nil;
@@ -77,9 +77,9 @@
             if (thirdByte >= (Byte)0x81 && thirdByte <= (Byte)0xfe) {
                 Byte fourthByte = *(byte+3);
                 if (fourthByte >= (Byte)0x30 && fourthByte <= (Byte)0x39) {
-                    Byte tuple[] = {firstByte, secondByte, thirdByte, fourthByte};
-                    CFStringRef cfstr = CFStringCreateWithBytes(kCFAllocatorDefault,tuple,4,kCFStringEncodingGB_18030_2000,false);
-                    return cfstr? [NSData dataWithBytes:byte length:4] : nil;
+                    Byte validBytes[] = {firstByte, secondByte, thirdByte, fourthByte};
+                    CFStringRef cStr = CFStringCreateWithBytes(kCFAllocatorDefault,validBytes,4,kCFStringEncodingGB_18030_2000,false);
+                    return cStr? [NSData dataWithBytes:byte length:4] : nil;
                 }
             }
         }
